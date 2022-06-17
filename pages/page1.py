@@ -6,23 +6,7 @@ import pandas as pd
 import plotly.express as px
 
 #preprocessing#########################################################
-from preprocessing.setup import profiles
-from preprocessing.functions import tidy_columns
-
-#data import##########################################################
-
-#import ref2021 results
-ref2021_data = pd.read_excel(
-    io = "data/REF 2021 Results - All - 2022-05-06.xlsx",
-    header = 6,
-    engine = "openpyxl"
-)
-    
-#tidy up column names
-ref2021_data.columns = [tidy_columns(c) for c in ref2021_data.columns.values.tolist()]
-
-#drop null row at bottom of dataframe
-ref2021_data = ref2021_data[ref2021_data["profile"].notnull()]
+from preprocessing.setup import profiles, ref2021_data
 
 #main page of app - user input and models##################################
 
@@ -34,38 +18,69 @@ page_1_layout = html.Div([
         #inputs head
         html.H3("Scenario inputs"),
         #qr value
-        html.Label("Mainstream QR total "),
-        dbc.Input(id = "ms_qr", type = "number", min = 0, step = 1, required = True, value = 1_060_710_491),
+        dbc.Row([
+            dbc.Label("Mainstream QR total", width = 5),
+            dbc.Col(
+                dbc.Input(id = "ms_qr", type = "number", min = 0, step = 1, required = True, value = 1_060_710_491),
+                width = 7
+            )
+        ]),
         html.Br(),
         #panel weightings
         html.H4("Panel quality weights"),
-        html.Label("4*"),
-        dbc.Input(id = "panel4", type = "number", min = 0, required = True, value = 1),
+        dbc.Row([
+            dbc.Label("4*", width = 2),
+            dbc.Col(
+                dbc.Input(id = "panel4", type = "number", min = 0, required = True, value = 1),
+                width = 10
+            )
+        ]),
         html.Br(),
-        html.Label("3*"),
-        dbc.Input(id = "panel3", type = "number", min = 0, required = True, value = 1),
+        dbc.Row([
+            dbc.Label("3*", width = 2),
+            dbc.Col(
+                dbc.Input(id = "panel3", type = "number", min = 0, required = True, value = 1),
+                width = 10
+                )
+        ]),
         html.Br(),
         #uoa weightings
         html.H4("UoA quality weights"),
-        html.Label("4*"),
-        dbc.Input(id = "uoa4", type = "number", min = 0, required = True, value = 4),
+        dbc.Row([
+            dbc.Label("4*", width = 2),
+            dbc.Col(
+                 dbc.Input(id = "uoa4", type = "number", min = 0, required = True, value = 4),
+                 width = 10
+            )
+        ]),
         html.Br(),
-        html.Label("3*"),
-        dbc.Input(id = "uoa3", type = "number", min = 0, required = True, value = 1),
+        dbc.Row([
+            dbc.Label("3*", width = 2),
+            dbc.Col(
+                dbc.Input(id = "uoa3", type = "number", min = 0, required = True, value = 1),
+                width = 10
+            )
+        ]),
         html.Br(),
         #filtering options
         html.H3("Filters"),
         #profile selector
-        html.Label("Profile"),
-        dcc.Dropdown(profiles, value = profiles, multi = True, id = "profile_select"),
+        dbc.Row([
+            dbc.Label("Profile"),
+            dcc.Dropdown(profiles, value = profiles, multi = True, id = "profile_select")
+        ]),
         html.Br(),
         #panel selector
-        html.Label("Main panel"),
-        dcc.Dropdown(["A", "B", "C", "D"], value = ["A", "B", "C", "D"], multi = True, id = "panel_select"),
+        dbc.Row([
+            dbc.Label("Main panel"),     
+            dcc.Dropdown(["A", "B", "C", "D"], value = ["A", "B", "C", "D"], multi = True, id = "panel_select")
+        ]),
         html.Br(),
         #uoa selector
-        html.Label("UoA number"),
-        dcc.Dropdown(list(range(1, 35)), value = list(range(1, 35)),  multi = True, id = "uoa_select"),
+        dbc.Row([
+            dbc.Label("UoA number"),
+            dcc.Dropdown(list(range(1, 35)), value = list(range(1, 35)),  multi = True, id = "uoa_select")
+        ]),
         html.Br(),
         #download
         html.Label("Raw data"),
@@ -75,13 +90,19 @@ page_1_layout = html.Div([
         #store data based on filters
         dcc.Store(id = "processed_data")
     ],
-    style = {"position": "fixed", "top": 0, "left": 0, "bottom": 0, "width": "24rem", "padding": "2rem 1rem", "background-color": "#f5f5dc"} 
+    style = {
+        "position": "fixed", 
+        "top": 0,
+        "left": 0, "bottom": 0, 
+        "width": "24rem", 
+        "padding": "2rem 1rem", 
+        "background-color": "#f5f5dc",
+        "overflow": "scroll"
+        } 
     ),
 
     #main page
     html.Div(children = [
-        #h1
-        html.H1("Mainstream QR scenarios following REF2021"),
         #h2 - plot
         html.H2("Plot of QR allocations"),
         #plot
@@ -251,7 +272,7 @@ def update_plot(processed_data, profile_select, panel_select, uoa_select):
         y = "hei_allocation", 
         color = "profile",
         color_discrete_sequence = px.colors.qualitative.G10,
-        title = "Mainstream QR allocations by HEI",
+        title = "",
         barmode = "stack",
         labels ={"hei_allocation": "Mainstream QR allocation (£M)"}
         )

@@ -10,9 +10,26 @@ from pages import page2
 app = Dash(__name__, external_stylesheets = [dbc.themes.SANDSTONE], suppress_callback_exceptions = True)
 
 #app layout##########################################################################
-app.layout = html.Div([ 
-    dcc.Location(id = "url", refresh = False),
-    html.Div(id = "page-content")
+app.layout = html.Div([
+    
+    #vanigation
+    html.Div(children = [
+            dbc.NavbarSimple( 
+                children = [
+                    dbc.NavItem(dbc.NavLink("Scenario tool", href = "/")),
+                    dbc.NavItem(dbc.NavLink("About", href = "/page2"))
+                    ],
+            brand = "QR scenario tool"
+        )
+        ],
+        style = {"margin-left": "26rem"}
+        ),
+
+    #main page
+    html.Div([
+        dcc.Location(id = "url", refresh = False),
+        html.Div(id = "page-content")
+        ])
 ])
 
 #display callback###########################################
