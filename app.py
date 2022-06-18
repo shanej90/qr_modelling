@@ -41,7 +41,7 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/':
         return home.page_1_layout
-    if pathname == '/index':
+    if pathname == '/home':
         return home.page_1_layout
     elif pathname == '/about':
         return about.page_2_layout
