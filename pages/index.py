@@ -168,9 +168,9 @@ def create_dataset(ms_qr, panel4, panel3, uoa4, uoa3):
     #...and convert back to numeric
     df[["3", "4"]] = df[["3", "4"]].astype(float)
 
-    #add quality weightings
-    df["panel_qw_fte"] = (df["3"]*panel3 + df["4"]*panel4) * df["fte_of_submitted_staff"]
-    df["uoa_qw_fte"] = (df["3"]*uoa3 + df["4"]*uoa4) * df["fte_of_submitted_staff"]
+    #add quality and cost weightings
+    df["panel_qw_fte"] = (df["3"]*panel3 + df["4"]*panel4) * df["fte_of_submitted_staff"] * df["c_weight"]
+    df["uoa_qw_fte"] = (df["3"]*uoa3 + df["4"]*uoa4) * df["fte_of_submitted_staff"] * df["c_weight"]
 
     #calculate panel allocations#####################################################
     
