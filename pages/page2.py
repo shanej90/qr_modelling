@@ -1,13 +1,14 @@
 from dash import Dash, html, dcc, dash_table, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 
-page_2_layout = html.Div([ 
+from preprocessing.setup import cost_weights
+
+page_2_layout = html.Div(children = [ 
     html.H1("About"),
     html.Br(),
-    dcc.Markdown
-    (
+    dcc.Markdown(
     """
-    ## About
+    ## What is QR funding?
 
     Mainstream QR (quality-related) research funding is funding allocated by the devolved governments of the United Kingdom to higher education providers (HEPs).
 
@@ -50,8 +51,26 @@ page_2_layout = html.Div([
 
     This tool is only for English HEPs.
 
-    Some UoAs are new this time around, and thus assumptions have been made about the cost-weighting they will receive.
+    Some UoAs are new this time around, and thus assumptions have been made about the cost-weighting they will receive. The cost weightings used are detailed below.
 
+    """
+    ),
+    #cost weights table
+    html.H3("Cost-weightings"),
+    html.Br(),
+    dash_table.DataTable(
+        id = "cost_weight_tbl",
+        columns = [
+            {"name": "UoA number", "id": "uoa_num"},
+            {"name": "Main panel", "id": "panel"},
+            {"name": "Weighting", "id": "cweight"}
+            ],
+        data = cost_weights,
+        filter_action = "native"
+    ),
+    html.Br(),
+    dcc.Markdown(
+    """
     ## About me
 
     Hi! I'm Shane - at the time of writing I am a data analyst at the University of Exeter, working in the research office. 
@@ -61,7 +80,7 @@ page_2_layout = html.Div([
     Next month (July 2022) I'm moving to work for [Ripeta](https://ripeta.com/), part of the [Digital Science](https://www.digital-science.com/) portfolio.
 
     I have a  [GitHub profile](https://github.com/shanej90) which hosts the source code for this app, amongst other projects.
-
     """
     )
-])
+]
+)
