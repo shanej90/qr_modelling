@@ -81,7 +81,7 @@ page_2_layout = html.Div([
 
     Next month (July 2022) I'm moving to work for [Ripeta](https://ripeta.com/), part of the [Digital Science](https://www.digital-science.com/) portfolio.
 
-    I have a  [GitHub profile](https://github.com/shanej90) which hosts the source code for this app, amongst other projects.
+    I have a  [GitHub profile](https://github.com/shanej90) which hosts the [source code for this app](https://github.com/shanej90/qr_modelling), amongst other projects.
     """
     )
 ],
