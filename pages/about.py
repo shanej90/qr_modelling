@@ -61,12 +61,13 @@ page_2_layout = html.Div([
     dash_table.DataTable(
         id = "cost_weight_tbl",
         columns = [
-            {"name": "UoA number", "id": "uoa_num"},
+            {"name": "UoA number", "id": "unit_of_assessment_number", "type": "numeric"},
             {"name": "Main panel", "id": "panel"},
-            {"name": "Weighting", "id": "cweight"}
+            {"name": "Weighting", "id": "c_weight", "type": "numeric", "format": dict(specifier = ",.1f")}
             ],
         data = cost_weights.to_dict("records"),
-        filter_action = "native"
+        filter_action = "native",
+        filter_options = {"case": "insensitive"}
     ),
     html.Br(),
     #about me markdown
