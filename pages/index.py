@@ -325,3 +325,5 @@ def download_data(n_clicks, processed_data, profile_select, panel_select, uoa_se
         ]
 
     return dcc.send_data_frame(df.to_csv, "qr_scenario_data.csv")
+
+

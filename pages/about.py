@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 
 from preprocessing.setup import cost_weights
 
-page_2_layout = html.Div(children = [ 
+page_2_layout = html.Div([ 
     html.H1("About"),
     html.Br(),
     dcc.Markdown(
@@ -30,10 +30,10 @@ page_2_layout = html.Div(children = [
 
         - Split money across the REF profiles: Outputs 60%; Impact 25 %; Environment 15%.
         - Apply cost-weightings to discipline areas, so more expensive research receives higher levels of funding.
-        - Weight all three and four star research equally (__you can change this in the tool__).
+        - Weight all three and four star research equally (you can change this in the tool).
         - Multiply the proportions of three and four star research by the FTE submitted.
         - Work out the total 'quality (and cost)-weighted FTE' for each Panel (per profile).
-        - Next, apply a 4x weighting to 4* star research and 1x to 3star (__you can change this in the tool__).
+        - Next, apply a 4x weighting to 4* star research and 1x to 3star (you can change this in the tool).
         - Quality (and cost-weight) the total FTE within each UoA to work what share of the panel allocation (per profile) they should get.
         - Use the same weighting for each individual submission within the UoA to work out allocations to individual HEIs.
 
@@ -65,10 +65,11 @@ page_2_layout = html.Div(children = [
             {"name": "Main panel", "id": "panel"},
             {"name": "Weighting", "id": "cweight"}
             ],
-        data = cost_weights,
+        data = cost_weights.to_dict("records"),
         filter_action = "native"
     ),
     html.Br(),
+    #about me markdown
     dcc.Markdown(
     """
     ## About me
@@ -82,5 +83,6 @@ page_2_layout = html.Div(children = [
     I have a  [GitHub profile](https://github.com/shanej90) which hosts the source code for this app, amongst other projects.
     """
     )
-]
+],
+style = {"margin-left": "10rem", "padding": "2rem 1rem"}
 )

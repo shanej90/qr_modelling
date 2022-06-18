@@ -3,8 +3,8 @@ from dash import Dash, html, dcc, dash_table, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 
 ###import local modules################################################
-from pages import page1
-from pages import page2
+from pages import index
+from pages import about
 
 #app setup#############################################################
 app = Dash(__name__, external_stylesheets = [dbc.themes.SANDSTONE], suppress_callback_exceptions = True)
@@ -17,7 +17,7 @@ app.layout = html.Div([
             dbc.NavbarSimple( 
                 children = [
                     dbc.NavItem(dbc.NavLink("Scenario tool", href = "/")),
-                    dbc.NavItem(dbc.NavLink("About", href = "/page2"))
+                    dbc.NavItem(dbc.NavLink("About", href = "/about"))
                     ],
             brand = "QR scenario tool"
         )
@@ -39,13 +39,13 @@ app.layout = html.Div([
 )
 def display_page(pathname):
     if pathname == '/':
-        return page1.page_1_layout
-    if pathname == '/page1':
-        return page1.page_1_layout
-    elif pathname == '/page2':
-        return page2.page_2_layout
+        return index.page_1_layout
+    if pathname == '/index':
+        return index.page_1_layout
+    elif pathname == '/about':
+        return about.page_2_layout
     else:
-        return '404'
+        return '404, page does not exist'
 
 #boilerplate setuo##########################################
 if __name__ == "__main__":

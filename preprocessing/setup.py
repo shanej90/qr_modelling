@@ -14,7 +14,6 @@ english_ukprns = pd.read_excel(
 )
 
 english_ukprn_list = english_ukprns.ukprn.values.tolist()
-ukprn_chr = [chr(u) for u in english_ukprn_list]
 
 #data import##########################################################
 
@@ -38,7 +37,7 @@ ref2021_data.columns = [tidy_columns(c) for c in ref2021_data.columns.values.tol
 ref2021_data = ref2021_data[ref2021_data["profile"].notnull()]
 
 #only english heps
-ref2021_data = ref2021_data.loc[ref2021_data.institution_code_ukprn.isin(ukprn_chr)]
+ref2021_data = ref2021_data.loc[ref2021_data.institution_code_ukprn.isin(english_ukprn_list)]
 
 #join on cost weightings
 ref2021_data = pd.merge(
