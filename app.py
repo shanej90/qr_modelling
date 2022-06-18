@@ -8,6 +8,7 @@ from pages import about
 
 #app setup#############################################################
 app = Dash(__name__, external_stylesheets = [dbc.themes.SANDSTONE], suppress_callback_exceptions = True)
+server = app.server
 
 #app layout##########################################################################
 app.layout = html.Div([
