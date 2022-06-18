@@ -3,7 +3,7 @@ from dash import Dash, html, dcc, dash_table, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 
 ###import local modules################################################
-from pages import index
+from pages import home
 from pages import about
 
 #app setup#############################################################
@@ -40,9 +40,9 @@ app.layout = html.Div([
 )
 def display_page(pathname):
     if pathname == '/':
-        return index.page_1_layout
+        return home.page_1_layout
     if pathname == '/index':
-        return index.page_1_layout
+        return home.page_1_layout
     elif pathname == '/about':
         return about.page_2_layout
     else:
